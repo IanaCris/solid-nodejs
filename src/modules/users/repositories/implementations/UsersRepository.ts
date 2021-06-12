@@ -26,6 +26,7 @@ class UsersRepository implements IUsersRepository {
       name,
       email,
       created_at: new Date(),
+      updated_at: new Date(),
     });
 
     this.users.push(user);
@@ -36,7 +37,7 @@ class UsersRepository implements IUsersRepository {
   findById(id: string): User | undefined {
     // Complete aqui
     const user = this.users.find((user) => user.id === id);
-    
+
     return user;
   }
 
@@ -52,6 +53,7 @@ class UsersRepository implements IUsersRepository {
     const userIndex = this.users.findIndex((user) => user.id == receivedUser.id);
 
     this.users[userIndex].admin = true;
+    this.users[userIndex].updated_at = new Date();
 
     return this.users[userIndex];
   }

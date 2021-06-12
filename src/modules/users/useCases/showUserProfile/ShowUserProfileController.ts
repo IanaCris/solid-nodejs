@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Request, Response } from "express";
 
 import { ShowUserProfileUseCase } from "./ShowUserProfileUseCase";
@@ -9,9 +10,14 @@ class ShowUserProfileController {
     // Complete aqui
     const { user_id } = request.params;
 
-    const user = this.showUserProfileUseCase.execute({ user_id });
+    try {
 
-    return response.json(user);
+      const user = this.showUserProfileUseCase.execute({ user_id });
+
+      return response.json(user);
+    } catch (err) {
+      return response.status(404).json({ error: err.message });
+    }
   }
 }
 
