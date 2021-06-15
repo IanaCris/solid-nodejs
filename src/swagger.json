@@ -77,7 +77,7 @@
       },
       "get": {
         "tags": ["users"],
-        "summary": "Lista todos os usuários",
+        "summary": "List all users",
         "description": "Somente usuário Admin pode acessar",
         "parameters": [
           {
@@ -147,22 +147,29 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Operação realizada com sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "admin": false,
+                  "id": "7acce24b-2170-4fc1-93ba-27cfbb029b89",
+                  "name": "João Pedro",
+                  "email": "joao@gmail.com",
+                  "created_at": "2021-06-12T03:30:36.802Z",
+                  "updated_at": "2021-06-12T03:30:54.627Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "example": {                  
+                  "error": "You not found."
                 }
               }
             }
@@ -175,24 +182,40 @@
         "tags": ["users"],
         "summary": "Turn a user admin",
         "description": "Torna um usuário como admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Operação realizada com sucesso",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "admin": true,
+                  "id": "7acce24b-2170-4fc1-93ba-27cfbb029b89",
+                  "name": "João Pedro",
+                  "email": "joao@gmail.com",
+                  "created_at": "2021-06-12T03:30:36.802Z",
+                  "updated_at": "2021-06-12T03:30:54.627Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "example": {                  
+                  "error": "You not found."
                 }
               }
             }
