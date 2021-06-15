@@ -29,13 +29,13 @@
                   "name": {
                     "type": "string"
                   },
-                  "description": {
+                  "email": {
                     "type": "string"
                   }
                 },
                 "example": {
                   "name": "João Pedro",
-                  "description": "User description sample"
+                  "email": "joao@gmail.com"
                 }
               }
             }
@@ -43,17 +43,52 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Operação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "admin": false,
+                  "id": "7acce24b-2170-4fc1-93ba-27cfbb029b89",
+                  "name": "João Pedro",
+                  "email": "joao@gmail.com",
+                  "created_at": "2021-06-12T03:30:36.802Z",
+                  "updated_at": "2021-06-12T03:30:54.627Z"
+                }
+              }
+            }
           },
-          "500": {
-            "description": "User already exists"
+          "400": {
+            "description": "Email já está sendo utilizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {                  
+                  "error": "This email is already in use"
+                }
+              }
+            }
           }
         }
       },
       "get": {
         "tags": ["users"],
-        "summary": "List all users",
-        "description": "Lista todos os usuários",
+        "summary": "Lista todos os usuários",
+        "description": "Somente usuário Admin pode acessar",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "user_id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -136,6 +171,40 @@
               }
             }
           }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "admin": {
+            "type": "boolean",
+            "enum": [
+              "true",
+              "false"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
         }
       }
     }
