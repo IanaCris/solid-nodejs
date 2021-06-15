@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { User } from "../../model/User";
 import { IUsersRepository, ICreateUserDTO } from "../IUsersRepository";
 
